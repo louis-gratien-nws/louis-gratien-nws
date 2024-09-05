@@ -2,7 +2,7 @@
 - 👀 Je suis intéressé par les nouvelles technologies, la communication et les jeux vidéo.
 - 🌱 Je suis actuellement en train d'étudier la communication digitale à la NWS.
 - 💞️ Je cherche à collaborer sur de la communication digitale.
-- 📫 Vous pouvez me joindre sur : (pas de réseau)
+- 📫 Vous pouvez me joindre sur : (pas de réseaux)
 - 😄 Pronoms : Il
 - ⚡ Fait amusant : Je suis né le 29 février 2004.
 
