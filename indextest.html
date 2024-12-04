@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EX'PRESS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <section class="bouton-user">
+      <style>
+        .round-button {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: url("JV.jpg") no-repeat center center;
+          background-size: cover;
+          text-decoration: none;
+        }
+      </style>
+    </section>
+  </head>
+  <body>
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-center">
+          <form action="recherche.html" method="get">
+            <input
+              type="text"
+              name="query"
+              placeholder="Rechercher un film"
+              required
+            />
+            <button class="search-btn">Rechercher</button>
+          </form>
+      </div>
+      <div class="header-right">
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <a href="user.html" class="round-button"></a>
+      </div>
+    </header>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="Home">
+      <h2>Bienvenue</h2>
+      <p>
+        Retrouvez l'intégralité de l'actualité des sorties cinéma. Partagez vos
+        avis et recommandations.
+      </p>
+    </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h1>Galerie de Films</h1>
+
+    <!-- Section des films les plus likés -->
+    <div id="mostLiked" class="carousel-container">
+      <h2>Plus likés :</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>  
+  
+    <!-- Section des films par genre -->
+    <div id="action" class="carousel-container">
+      <h2>Action :</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+  
+    <div id="sciFi" class="carousel-container">
+      <h2>Science-Fiction :</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+  
+    <div id="comedy" class="carousel-container">
+      <h2>Comédie :</h2>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+  
+    <script src="galerie.js"></script>
+  </body>
+</html>

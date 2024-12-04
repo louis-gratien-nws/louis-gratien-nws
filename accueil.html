@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EX'PRESS</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="light-mode">
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-center">
+        <form action="recherche.html" method="get">
+          <input
+            type="text"
+            name="query"
+            placeholder="Rechercher un film"
+            required
+          />
+          <button class="search-btn">Rechercher</button>
+        </form>
+      </div>
+      <div class="header-right">
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <button id="themeToggle" class="theme-toggle">🌙</button>
+        <a href="user.html" class="user-icon">
+          <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
+        </a>
+      </div>
+    </header>
+    
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+    <section class="banner">
+      <div class="banner-slider">
+        <img src="image/jokerbanner.png" alt="Bannière 1" />
+        <img src="image/bladerunner-banner.png" alt="Bannière 2" />
+        <img src="image/django.png" alt="Bannière 3" />
+        <img src="image/trueman-banner.png" alt="Bannière 4" />
+        <img src="image/forestgump-banner.png" alt="Bannière 5" />
+      </div>
+      <!-- Points de navigation -->
+      <div class="banner-indicators">
+        <span class="indicator" data-index="0"></span>
+        <span class="indicator" data-index="1"></span>
+        <span class="indicator" data-index="2"></span>
+        <span class="indicator" data-index="3"></span>
+        <span class="indicator" data-index="4"></span>
+      </div>
+    </section>
+    
+
+    <!-- Section des films les plus likés -->
+    <div id="mostLiked" class="carousel-container">
+      <h1>Plus likés :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>  
+    <br>
+    <!-- Section des films par genre -->
+    <div id="action" class="carousel-container">
+      <h1>Action :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+  <br>
+    <div id="sciFi" class="carousel-container">
+      <h1>Science-Fiction :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+    <br>
+    <div id="comedy" class="carousel-container">
+      <h1>Comédie :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+  
+    <script src="galerie.js"></script>
+    <script src="accueil.js"></script>
+    <script src="banner-point.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Admin</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="Header">
+      <div class="header-left">
+        <h1>EX'PRESS</h1>
+      </div>
+      <div class="header-center">
+          <form action="recherche.html" method="get">
+            <input
+              type="text"
+              name="query"
+              placeholder="Rechercher un film"
+              required
+            />
+            <button class="search-btn">Rechercher</button>
+          </form>
+      </div>
+      <div class="header-right">
+        <a href="login.html">
+          <button class="connexion-btn">Se Connecter</button>
+        </a>
+        <a href="user.html" class="user-icon">
+          <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
+      </a>
+      
+      
+      
+      </div>
+    </header>
+    <header>
+      <div class="header-container">
+        <h1>Administration des Films</h1>
+      </div>
+    </header>
+    <div class="main-container">
+      <!-- Tableau des films -->
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Titre du film</th>
+            <th>Pochette</th>
+            <th>Commentaires</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Le Roi Lion</td>
+            <td><img src="https://via.placeholder.com/150x220?text=Pas+d'image" alt="Le Roi Lion"></td>
+            <td><span class="comment-count">0</span></td>
+            <td>
+              <button class="edit-btn">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+              <button class="delete-btn">
+                <i class="fas fa-trash"></i> Supprimer
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Inception</td>
+            <td><img src="https://via.placeholder.com/150x220?text=Pas+d'image" alt="Inception"></td>
+            <td><span class="comment-count">0</span></td>
+            <td>
+              <button class="edit-btn">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+              <button class="delete-btn">
+                <i class="fas fa-trash"></i> Supprimer
+              </button>
+            </td>
+          </tr>
+          <!-- Ajouter d'autres films ici -->
+        </tbody>
+      </table>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>

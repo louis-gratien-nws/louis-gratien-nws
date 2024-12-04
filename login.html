@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  </head>
+  <header class="Header">
+    <div class="header-left">
+      <h1>EX'PRESS</h1>
+    </div>
+    <div class="header-center">
+        <form action="recherche.html" method="get">
+          <input
+            type="text"
+            name="query"
+            placeholder="Rechercher un film"
+            required
+          />
+          <button class="search-btn">Rechercher</button>
+        </form>
+    </div>
+    <div class="header-right">
+      <a href="login.html">
+        <button class="connexion-btn">Se Connecter</button>
+      </a>
+      <a href="user.html" class="user-icon">
+        <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
+    </a>
+    
+    
+    
+    </div>
+  </header>
+  <body>
+    <div class="main-container">
+      <section name="connexion" class="form-container">
+        <h2>Connexion</h2>
+        <form>
+          <label for="username">Identifiant</label>
+          <input type="text" id="username" name="username" min="4" max="20" required />
+
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" name="password" min="8" required />
+
+          <button type="submit">Se connecter</button>
+
+          <a href="register.html">
+            <button type="button" class="register-btn">Toujours pas de compte ? S'inscrire</button>
+          </a>
+        </form>
+
+        <a href="accueil.html">
+          <button type="button" class="back-button">Retour</button>
+        </a>
+      </section>
+    </div>
+  </body>
+</html>
