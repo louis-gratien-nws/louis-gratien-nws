@@ -1,118 +1,85 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recherche de Films</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  </head>
-  
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recherche de Films</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
   <header class="Header">
-    <div class="header-left">
-      <h1>EX'PRESS</h1>
-    </div>
-    <div class="header-center">
-        <form action="recherche.html" method="get">
-          <input
-            type="text"
-            name="query"
-            placeholder="Rechercher un film"
-            required
-          />
-          <button class="search-btn">Rechercher</button>
-        </form>
-    </div>
-    <div class="header-right">
-      <a href="login.html">
-        <button class="connexion-btn">Se Connecter</button>
-      </a>
-      <a href="user.html" class="user-icon">
-        <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
-    </a>
-    
-    
-    
-    </div>
+    <h1>EX'PRESS</h1>
+    <form class="search-form" action="recherche.html" method="get">
+      <input
+        type="text"
+        name="query"
+        placeholder="Rechercher un film"
+        value=""
+        required
+      />
+      <button class="search-btn" type="submit">Rechercher</button>
+    </form>
   </header>
-  <body>
-    <div class="main-container">
-      <!-- Barre de recherche -->
-      <div class="search-bar">
-        <input
-          type="text"
-          placeholder="Rechercher un film..."
-          id="searchInput"
-        />
-        <button id="searchButton">Rechercher</button>
-      </div>
 
-      <!-- Galerie de films -->
-      <div class="movie-gallery"></div>
-
-      <!-- Détails du film -->
-      <div class="movie-details" id="movieDetails">
-        <!-- Les détails seront insérés dynamiquement -->
-      </div>
+  <main class="main-container">
+    <h2>Résultats de la recherche</h2>
+    <div class="movie-gallery">
+      <!-- Les films seront affichés ici -->
     </div>
+  </main>
 
-    <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const query = urlParams.get('query');
-    
-        if (query) {
-          document.getElementById('searchInput').value = query;
-          searchMovies(query); 
+  <footer>
+    <p>© 2024 EX'PRESS. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    const searchQuery = new URLSearchParams(window.location.search).get("query");
+
+    async function searchMovies(query) {
+      try {
+        const response = await fetch(`http://localhost:3000/films/search?query=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+          throw new Error(`Erreur lors de la récupération des films : ${response.statusText}`);
         }
-      });
-    
-      async function searchMovies(query) {
-        const API_KEY = "dc66224e"; 
+
+        const movies = await response.json();
+        console.log("Résultats de la recherche :", movies);
+
         const movieGallery = document.querySelector(".movie-gallery");
-        const movieDetails = document.getElementById("movieDetails");
-    
-        try {
-          const response = await fetch(
-            `https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`
-          );
-          const data = await response.json();
-    
-          if (data.Response === "True") {
-            displayMovies(data.Search);
-          } else {
-            movieGallery.innerHTML = `<p>Aucun film trouvé pour "${query}".</p>`;
-          }
-        } catch (error) {
-          console.error("Erreur lors de la recherche :", error);
-          movieGallery.innerHTML = `<p>Erreur lors de la recherche.</p>`;
+
+        // Gérer les cas où aucun film n'est trouvé
+        if (movies.length === 0) {
+          movieGallery.innerHTML = `<p>Aucun résultat trouvé pour "${query}".</p>`;
+          return;
         }
+
+        // Générer le HTML des résultats
+        movieGallery.innerHTML = movies
+          .map(
+            (movie) => `
+              <div class="movie-item">
+                <a href="film.html?filmId=${movie.id}">
+                  <img src="${movie.poster}" alt="${movie.title}" />
+                  <p>${movie.title}</p>
+                </a>
+              </div>
+            `
+          )
+          .join("");
+      } catch (error) {
+        console.error("Erreur lors de la recherche de films :", error);
+        document.querySelector(".movie-gallery").innerHTML = `
+          <p>Erreur lors de la recherche de films. Veuillez réessayer plus tard.</p>`;
       }
-    
-      function displayMovies(movies) {
-        const movieGallery = document.querySelector(".movie-gallery");
-        movieGallery.innerHTML = "";
-    
-        movies.forEach((movie) => {
-          const movieItem = document.createElement("div");
-          movieItem.classList.add("movie-item");
-    
-          const poster =
-            movie.Poster !== "N/A"
-              ? movie.Poster
-              : "https://via.placeholder.com/150x220?text=Pas+d'image";
-    
-          movieItem.innerHTML = `
-            <a href="film.html?filmId=${movie.imdbID}">
-              <img src="${poster}" alt="${movie.Title}">
-              <p>${movie.Title}</p>
-            </a>
-          `;
-    
-          movieGallery.appendChild(movieItem);
-        });
-      }
-    </script>    
-  </body>
+    }
+
+    // Vérifier si une requête de recherche existe
+    if (searchQuery) {
+      searchMovies(searchQuery);
+    } else {
+      document.querySelector(".movie-gallery").innerHTML = "<p>Aucun terme de recherche fourni.</p>";
+    }
+  </script>
+</body>
 </html>

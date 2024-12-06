@@ -16,37 +16,20 @@
   </head>
   <body class="light-mode">
     <header class="Header">
-      <div class="header-left">
-        <h1>EX'PRESS</h1>
-      </div>
-      <div class="header-center">
-        <form action="recherche.html" method="get">
-          <input
-            type="text"
-            name="query"
-            placeholder="Rechercher un film"
-            required
-          />
-          <button class="search-btn">Rechercher</button>
-        </form>
-      </div>
+      <h1 class="header-left">EX'PRESS</h1>
+      <form class="header-center" action="recherche.html" method="get">
+        <input type="text" name="query" placeholder="Rechercher un film" id="searchInput" required />
+        <button class="search-btn" id="searchButton">Rechercher</button>
+      </form>
       <div class="header-right">
-        <a href="login.html">
-          <button class="connexion-btn">Se Connecter</button>
-        </a>
-        <button id="themeToggle" class="theme-toggle">🌙</button>
+        <a href="login.html" class="connexion-btn">Se Connecter</a>
         <a href="user.html" class="user-icon">
           <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
         </a>
       </div>
     </header>
-    
 
-    <script src="script.js"></script>
-  </body>
-</html>
-
-
+    <!-- Section Bannière -->
     <section class="banner">
       <div class="banner-slider">
         <img src="image/jokerbanner.png" alt="Bannière 1" />
@@ -64,7 +47,6 @@
         <span class="indicator" data-index="4"></span>
       </div>
     </section>
-    
 
     <!-- Section des films les plus likés -->
     <div id="mostLiked" class="carousel-container">
@@ -72,18 +54,12 @@
       <button class="carousel-prev">◀</button>
       <div class="carousel-track"></div>
       <button class="carousel-next">▶</button>
-    </div>  
+    </div>
     <br>
+
     <!-- Section des films par genre -->
     <div id="action" class="carousel-container">
       <h1>Action :</h1>
-      <button class="carousel-prev">◀</button>
-      <div class="carousel-track"></div>
-      <button class="carousel-next">▶</button>
-    </div>
-  <br>
-    <div id="sciFi" class="carousel-container">
-      <h1>Science-Fiction :</h1>
       <button class="carousel-prev">◀</button>
       <div class="carousel-track"></div>
       <button class="carousel-next">▶</button>
@@ -95,12 +71,62 @@
       <div class="carousel-track"></div>
       <button class="carousel-next">▶</button>
     </div>
-  
-    <script src="galerie.js"></script>
-    <script src="accueil.js"></script>
+    <br>
+    <div id="sciFi" class="carousel-container">
+      <h1>Science-Fiction :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+    <br>
+    <div id="horror" class="carousel-container">
+      <h1>Horreur :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+    <br>
+    <div id="thriller" class="carousel-container">
+      <h1>Thriller :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+    <br>
+    <div id="animation" class="carousel-container">
+      <h1>Film d'animation :</h1>
+      <button class="carousel-prev">◀</button>
+      <div class="carousel-track"></div>
+      <button class="carousel-next">▶</button>
+    </div>
+    <br>
+
     <script src="banner-point.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
+    <script>
+// Fonction pour afficher les films dans une galerie donnée
+function displayMovies(movies, containerId) {
+  const container = document.querySelector(`#${containerId} .carousel-track`);
 
+  if (movies.length === 0) {
+    container.innerHTML = `<p>Aucun film disponible dans cette catégorie.</p>`;
+    return;
+  }
+
+  container.innerHTML = movies
+    .map(
+      (movie) => `
+      <div class="movie-item">
+        <a href="film.html?filmId=${movie.id}">
+          <img src="${movie.poster}" alt="${movie.title}">
+          <p>${movie.title}</p>
+        </a>
+      </div>`
+    )
+    .join("");
+}
+
+    </script>
   </body>
 </html>

@@ -5,16 +5,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Détails du Film</title>
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="main-container">
-      <!-- Détails du film -->
-      <div class="movie-details" id="movieDetails">
-        <!-- Les détails seront insérés dynamiquement -->
-      </div>
-    </div>
+    <header class="Header">
+      <h1>EX'PRESS</h1>
+    </header>
 
-    <script src="film.js"></script>
+    <main>
+      <!-- Section pour les détails du film -->
+      <section id="movieDetails" class="movie-details">
+        <!-- Les détails du film seront insérés dynamiquement -->
+      </section>
+
+      <!-- Section des commentaires -->
+      <section>
+        <h3>Commentaires</h3>
+        <div id="commentsContainer"></div>
+
+        <form id="commentForm" style="display: none;">
+          <textarea id="commentText" placeholder="Ajoutez un commentaire ici..." required></textarea>
+          <button type="submit">Poster</button>
+        </form>
+        <p id="loginPrompt" style="display: none;">Connectez-vous pour poster un commentaire.</p>
+      </section>
+    </main>
+
+    <script>
+      const movieId = new URLSearchParams(window.location.search).get("filmId");
+
+      // Charger les détails du film
+      async function loadMovieDetails() {
+        try {
+          const response = await fetch(`http://localhost:3000/films/${movieId}`);
+          if (!response.ok) throw new Error("Film non trouvé.");
+
+          const movie = await response.json();
+          const movieDetails = document.getElementById("movieDetails");
+          movieDetails.innerHTML = `
+            <img src="${movie.poster}" alt="${movie.title}" class="movie-poster">
+            <h2>${movie.title}</h2>
+            <p><strong>Note :</strong> ${movie.note}</p>
+            <p><strong>Genres :</strong> ${movie.genres}</p>
+            <p><strong>Acteurs :</strong> ${movie.actors}</p>
+            <p><strong>Description :</strong> ${movie.description}</p>
+          `;
+        } catch (error) {
+          document.getElementById("movieDetails").innerHTML = `<p>${error.message}</p>`;
+        }
+      }
+
+      // Charger les commentaires
+      async function loadComments() {
+        try {
+          const response = await fetch(`http://localhost:3000/comments/${movieId}`);
+          if (!response.ok) throw new Error("Erreur lors de la récupération des commentaires.");
+
+          const comments = await response.json();
+          const commentsContainer = document.getElementById("commentsContainer");
+          commentsContainer.innerHTML = comments.length
+            ? comments
+                .map(
+                  (comment) => `
+                <div class="comment">
+                  <h4>${comment.username}</h4>
+                  <p>${comment.comment}</p>
+                  <small>${new Date(comment.created_at).toLocaleString()}</small>
+                </div>
+              `
+                )
+                .join("")
+            : "<p>Aucun commentaire pour ce film.</p>";
+        } catch (error) {
+          document.getElementById("commentsContainer").innerHTML = `<p>${error.message}</p>`;
+        }
+      }
+
+      // Vérifier si l'utilisateur est connecté
+      async function checkUser() {
+        try {
+          const response = await fetch("http://localhost:3000/current-user");
+          if (response.ok) {
+            document.getElementById("commentForm").style.display = "block";
+            document.getElementById("loginPrompt").style.display = "none";
+          } else {
+            throw new Error("Non connecté.");
+          }
+        } catch (error) {
+          document.getElementById("commentForm").style.display = "none";
+          document.getElementById("loginPrompt").style.display = "block";
+        }
+      }
+
+      // Ajouter un commentaire
+      document.getElementById("commentForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const commentText = document.getElementById("commentText").value;
+
+        try {
+          const response = await fetch("http://localhost:3000/comments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ movie_id: movieId, comment: commentText }),
+          });
+
+          if (response.ok) {
+            document.getElementById("commentText").value = "";
+            loadComments();
+          } else {
+            throw new Error("Erreur lors de l'ajout du commentaire.");
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      });
+
+      // Initialisation
+      loadMovieDetails();
+      loadComments();
+      checkUser();
+    </script>
   </body>
 </html>

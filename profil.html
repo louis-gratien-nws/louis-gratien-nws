@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Profil</h1>
+    <h2>Bienvenue, <span id="username">Utilisateur</span>!</h2>
+    <h3>Vos commentaires :</h3>
+    <ul id="user-comments">
+        <!-- Les commentaires de l'utilisateur seront injectés ici -->
+    </ul>
+    <button onclick="logout()">Se déconnecter</button>
+
+    <script>
+        // Simuler une déconnexion (backend requis pour une vraie session)
+        function logout() {
+            localStorage.removeItem('authToken'); // Exemple pour un token
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

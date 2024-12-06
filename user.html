@@ -2,82 +2,57 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mon Compte</title>
+    <title>Mon Profil</title>
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
-  <body></body>
-  <header class="Header">
-    <div class="header-left">
+  <body>
+    <header class="Header">
       <h1>EX'PRESS</h1>
-    </div>
-    <div class="header-center">
-        <form action="recherche.html" method="get">
-          <input
-            type="text"
-            name="query"
-            placeholder="Rechercher un film"
-            required
-          />
-          <button class="search-btn">Rechercher</button>
-        </form>
-    </div>
-    <div class="header-right">
-      <a href="login.html">
-        <button class="connexion-btn">Se Connecter</button>
-      </a>
-      <a href="user.html" class="user-icon">
-        <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
-    </a>
-    </div>
-  </header>
+    </header>
 
-  <div class="profile-section">
-    <!-- Image de profil à gauche -->
-    <img src="image/raphael-sanchez-profile-320.webp" alt="Photo de profil" class="profile-pic">
-    
-    <div class="profile-info">
-      <h2>Raphael (Batman) </h2>
-      <p>Bienvenue sur votre profil !</p>
-    </div>
-  </div>
+    <main>
+      <h2 id="welcomeMessage"></h2>
+      <button id="logoutButton">Déconnexion</button>
 
-      <!-- FILMS LIKÉS -->
-      <div class="section">
-        <h3>Films likés</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li>Film 1</li>
-            <li>Film 2</li>
-            <li>Film 3</li>
-          </ul>
-        </div>
-      </div>
+      <section>
+        <h3>Mes Commentaires</h3>
+        <div id="commentsContainer"></div>
+      </section>
+    </main>
 
-      <!-- COMMENTAIRES LES PLUS LIKÉS -->
-      <div class="section">
-        <h3>Commentaires les plus likés</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li>Commentaire 1</li>
-            <li>Commentaire 2</li>
-            <li>Commentaire 3</li>
-          </ul>
-        </div>
-      </div>
+    <script>
+      async function loadUserData() {
+        const userResponse = await fetch("http://localhost:3000/current-user");
+        if (userResponse.ok) {
+          const user = await userResponse.json();
+          document.getElementById("welcomeMessage").innerText = `Bienvenue, ${user.user.username}`;
 
-      <!-- WISHLIST -->
-      <div class="section">
-        <h3>Wishlist - Films à venir</h3>
-        <div class="card">
-          <ul class="horizontal-list">
-            <li>Film 1</li>
-            <li>Film 2</li>
-            <li>Film 3</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+          const commentsResponse = await fetch("http://localhost:3000/user/comments");
+          const comments = await commentsResponse.json();
+
+          const commentsContainer = document.getElementById("commentsContainer");
+          commentsContainer.innerHTML = comments
+            .map(
+              (comment) => `
+                <div>
+                  <h4>${comment.movie_title}</h4>
+                  <p>${comment.comment}</p>
+                  <small>${new Date(comment.created_at).toLocaleString()}</small>
+                </div>
+              `
+            )
+            .join("");
+        } else {
+          window.location.href = "login.html";
+        }
+      }
+
+      document.getElementById("logoutButton").addEventListener("click", async () => {
+        await fetch("http://localhost:3000/logout", { method: "POST" });
+        window.location.href = "login.html";
+      });
+
+      loadUserData();
+    </script>
   </body>
 </html>

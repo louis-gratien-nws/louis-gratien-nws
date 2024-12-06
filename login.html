@@ -2,63 +2,51 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Login</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <title>Connexion</title>
     <link rel="stylesheet" href="styles.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   </head>
-  <header class="Header">
-    <div class="header-left">
-      <h1>EX'PRESS</h1>
-    </div>
-    <div class="header-center">
-        <form action="recherche.html" method="get">
-          <input
-            type="text"
-            name="query"
-            placeholder="Rechercher un film"
-            required
-          />
-          <button class="search-btn">Rechercher</button>
-        </form>
-    </div>
-    <div class="header-right">
-      <a href="login.html">
-        <button class="connexion-btn">Se Connecter</button>
-      </a>
-      <a href="user.html" class="user-icon">
-        <img src="image/raphael-sanchez-profile-320.webp" alt="Icône utilisateur" />
-    </a>
-    
-    
-    
-    </div>
-  </header>
   <body>
-    <div class="main-container">
-      <section name="connexion" class="form-container">
-        <h2>Connexion</h2>
-        <form>
-          <label for="username">Identifiant</label>
-          <input type="text" id="username" name="username" min="4" max="20" required />
+    <header class="Header">
+      <h1>EX'PRESS</h1>
+    </header>
 
-          <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password" min="8" required />
+    <main>
+      <section class="form-container">
+        <h2>Connexion</h2>
+        <form id="loginForm">
+          <label for="email">Email :</label>
+          <input type="email" id="email" required />
+
+          <label for="password">Mot de passe :</label>
+          <input type="password" id="password" required />
 
           <button type="submit">Se connecter</button>
-
-          <a href="register.html">
-            <button type="button" class="register-btn">Toujours pas de compte ? S'inscrire</button>
-          </a>
         </form>
-
-        <a href="accueil.html">
-          <button type="button" class="back-button">Retour</button>
-        </a>
+        <p id="errorMessage" style="color: red; display: none;">Email ou mot de passe incorrect.</p>
+        <p>
+          Pas encore de compte ? <a href="register.html">Inscrivez-vous ici</a>.
+        </p>
       </section>
-    </div>
+    </main>
+
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("http://localhost:3000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (response.ok) {
+          window.location.href = "user.html";
+        } else {
+          document.getElementById("errorMessage").style.display = "block";
+        }
+      });
+    </script>
   </body>
 </html>
